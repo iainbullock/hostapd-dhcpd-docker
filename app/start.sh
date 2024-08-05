@@ -42,6 +42,14 @@ ln -sf /config/interfaces /etc/interfaces
 ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
 ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
 
+# Set default values for environment variables
+: ${UPLINK_IFACE:=eth0}
+: ${AP_IFACE:=wlan0}
+
+echo -e "${CYAN}[*] Configuration variables:${NOCOLOR}"
+echo -e "${GREEN}     UPLINK_IFACE=$UPLINK_IFACE ${NOCOLOR}"
+echo -e "${GREEN}     AP_IFACE=$AP_IFACE ${NOCOLOR}"
+
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
 #sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
 
