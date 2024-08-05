@@ -46,7 +46,7 @@ if [ ! -f /config/hostapd.conf ]; then
 fi
 
 echo -e "${CYAN}[*] Creating config links${NOCOLOR}"
-ln -sf /config/interfaces /etc/interfaces
+ln -sf /config/interfaces /etc/network/interfaces
 ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
 ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
 touch /var/lib/dhcp/dhcpd.leases
