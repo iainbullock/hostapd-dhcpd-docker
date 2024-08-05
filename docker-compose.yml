@@ -4,7 +4,7 @@ volumes:
     
 services:
   hostapd-dhcpd:
-    image: hostapd-dhcpd:latest
+    image: iainbullock/hostapd-dhcpd:latest
     container_name: hostapd-dhcpd
    
     volumes:
