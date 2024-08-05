@@ -22,6 +22,26 @@ cleanup () {
 
 trap 'sigterm_handler' TERM INT
 
+if [ ! -f /config/interfaces ]; then
+ echo -e "${CYAN}[*] Creating default interfaces config file${NOCOLOR}"
+ cp /conf/interfaces /config
+fi
+
+if [ ! -f /config/dhcpd.conf ]; then
+ echo -e "${CYAN}[*] Creating default dhcpd.conf config file${NOCOLOR}"
+ cp /conf/dhcpd.conf /config
+fi
+
+if [ ! -f /config/hostapd.conf ]; then
+ echo -e "${CYAN}[*] Creating default hostapd.conf config${NOCOLOR}"
+ cp /conf/hostapd.conf /config
+fi
+
+echo -e "${CYAN}[*] Creating config links${NOCOLOR}"
+ln -sf /config/interfaces /etc/interfaces
+ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
+ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
+
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
 #sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
 
