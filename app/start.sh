@@ -50,6 +50,7 @@ ln -sf /config/interfaces /etc/network/interfaces
 ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
 ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
 touch /var/lib/dhcp/dhcpd.leases
+touch /run/dhcp/dhcpd.pid
 
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
 sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
