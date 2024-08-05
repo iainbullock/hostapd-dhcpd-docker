@@ -7,8 +7,7 @@ RUN apk update && apk add --no-cache \
 # Copy configs and scripts
 RUN mkdir /conf /app
 ADD conf/* /conf
-
-# Copy scripts
 ADD app/* /app
+RUN chmod +x /app/start.sh
 
 CMD [ "/app/start.sh" ]
