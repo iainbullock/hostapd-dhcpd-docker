@@ -51,16 +51,16 @@ ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
 ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
 
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
-#sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
+sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
 
 echo -e "${CYAN}[*] Setting $AP_IFACE settings${NOCOLOR}"
-#ifdown $AP_IFACE
-#ifup $AP_IFACE
+ifdown $AP_IFACE
+ifup $AP_IFACE
 
 echo -e "${CYAN}[+] Configuration successful! Services will start now${NOCOLOR}"
-#dhcpd -4 -f -d $AP_IFACE &
+dhcpd -4 -f -d $AP_IFACE &
 hostapd /etc/hostapd/hostapd.conf &
 pid=$!
 wait $pid
 
-#cleanup
+cleanup
