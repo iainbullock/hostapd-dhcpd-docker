@@ -54,10 +54,13 @@ touch /run/dhcp/dhcpd.pid
 
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
 sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
+sleep 5
 
 echo -e "${CYAN}[*] Setting $AP_IFACE settings${NOCOLOR}"
 ifdown $AP_IFACE
+sleep 5
 ifup $AP_IFACE
+sleep 5
 
 echo -e "${CYAN}[+] Configuration successful! Services will start now${NOCOLOR}"
 dhcpd -4 -f -d $AP_IFACE &
