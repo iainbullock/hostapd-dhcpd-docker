@@ -22,26 +22,6 @@ cleanup () {
 
 trap 'sigterm_handler' TERM INT
 
-if [ ! -f /config/interfaces ]; then
- echo -e "${CYAN}[*] Creating default interfaces config file${NOCOLOR}"
- cp /conf/interfaces /config
-fi
-
-if [ ! -f /config/dhcpd.conf ]; then
- echo -e "${CYAN}[*] Creating default dhcpd.conf config file${NOCOLOR}"
- cp /conf/dhcpd.conf /config
-fi
-
-if [ ! -f /config/hostapd.conf ]; then
- echo -e "${CYAN}[*] Creating default hostapd.conf config${NOCOLOR}"
- cp /conf/hostapd.conf /config
-fi
-
-echo -e "${CYAN}[*] Creating config links${NOCOLOR}"
-ln -sf /config/interfaces /etc/interfaces
-ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
-ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
-
 # Set default values for environment variables
 : ${UPLINK_IFACE:=eth0}
 : ${AP_IFACE:=wlan0}
@@ -49,6 +29,26 @@ ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
 echo -e "${CYAN}[*] Configuration variables:${NOCOLOR}"
 echo -e "${GREEN}     UPLINK_IFACE=$UPLINK_IFACE ${NOCOLOR}"
 echo -e "${GREEN}     AP_IFACE=$AP_IFACE ${NOCOLOR}"
+
+if [ ! -f /config/interfaces ]; then
+ echo -e "${CYAN}[*] Creating default interfaces config file${NOCOLOR}"
+ cat /conf/interfaces > /config/interfaces
+fi
+
+if [ ! -f /config/dhcpd.conf ]; then
+ echo -e "${CYAN}[*] Creating default dhcpd.conf config file${NOCOLOR}"
+ cat /conf/dhcpd.conf > /config/dhcpd.conf
+fi
+
+if [ ! -f /config/hostapd.conf ]; then
+ echo -e "${CYAN}[*] Creating default hostapd.conf config${NOCOLOR}"
+ cat /conf/hostapd.conf > /config/hostapd.conf
+fi
+
+echo -e "${CYAN}[*] Creating config links${NOCOLOR}"
+ln -sf /config/interfaces /etc/interfaces
+ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
+ln -sf /config/hostapd.conf /etc/hostapd/hostapd.conf
 
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
 #sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
