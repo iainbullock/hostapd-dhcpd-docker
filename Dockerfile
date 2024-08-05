@@ -1,33 +1,13 @@
-FROM golang:1.22.4-alpine3.20 AS build
-
-RUN apk add --no-cache \
-  unzip
-
-RUN mkdir -p /app/bin
-
-# install Tesla Go packages
-ADD https://github.com/teslamotors/vehicle-command/archive/refs/heads/main.zip /tmp
-RUN unzip /tmp/main.zip -d /app
-WORKDIR /app/vehicle-command-main
-RUN go get ./...
-RUN go build -o /app/bin ./...
-
-FROM alpine:3.20.0
+FROM alpine:3.20.2
 
 # install dependencies
-RUN apk add --no-cache \
-  bluez \
-  bluez-deprecated \
-  mosquitto-clients \
-  openssl
+RUN apk update && apk add --no-cache \
+  hostapd iw dhcp iptables
 
-# Create various working directories
-RUN mkdir /data
+# Copy configs
+ADD conf/* /conf
 
-# Copy project files into required locations
-COPY app liblog.sh libproduct.sh /app/
+# Copy scripts
+ADD app/* /app
 
-# Copy binaries from build stage
-COPY --from=build /app/bin/tesla-control /usr/bin/
-
-CMD [ "/app/run.sh" ]
+CMD [ "/app/start.sh" ]
