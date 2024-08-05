@@ -32,17 +32,17 @@ echo -e "${GREEN}     AP_IFACE=$AP_IFACE ${NOCOLOR}"
 
 if [ ! -f /config/interfaces ]; then
  echo -e "${CYAN}[*] Creating default interfaces config file${NOCOLOR}"
- envsubst /conf/interfaces > /config/interfaces
+ cat /conf/interfaces | envsubst > /config/interfaces
 fi
 
 if [ ! -f /config/dhcpd.conf ]; then
  echo -e "${CYAN}[*] Creating default dhcpd.conf config file${NOCOLOR}"
- envsubst /conf/dhcpd.conf > /config/dhcpd.conf
+ cat /conf/dhcpd.conf | envsubst > /config/dhcpd.conf
 fi
 
 if [ ! -f /config/hostapd.conf ]; then
  echo -e "${CYAN}[*] Creating default hostapd.conf config${NOCOLOR}"
- envsubst /conf/hostapd.conf > /config/hostapd.conf
+ cat /conf/hostapd.conf | envsubst > /config/hostapd.conf
 fi
 
 echo -e "${CYAN}[*] Creating config links${NOCOLOR}"
