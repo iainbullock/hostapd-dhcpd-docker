@@ -54,6 +54,16 @@ if [ ! -f /config/hostapd.conf ]; then
  cat /conf/hostapd.conf | envsubst > /config/hostapd.conf
 fi
 
+if [ ! -f /config/ my_iptables.sh ]; then
+ echo -e "${CYAN}[*] Creating default my_iptables.sh config${NOCOLOR}"
+ cat /conf/my_iptables.sh | envsubst > /config/my_iptables.sh
+fi
+
+if [ ! -f /config/ my_iptables_off.sh ]; then
+ echo -e "${CYAN}[*] Creating default my_iptables_off.sh config${NOCOLOR}"
+ cat /conf/my_iptables.sh | envsubst > /config/my_iptables_off.sh
+fi
+
 echo -e "${CYAN}[*] Creating config links${NOCOLOR}"
 ln -sf /config/interfaces /etc/network/interfaces
 ln -sf /config/dhcpd.conf /etc/dhcp/dhcpd.conf
