@@ -53,13 +53,13 @@ echo -e "${GREEN}     AP_IFACE=$AP_IFACE ${NOCOLOR}"
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
 #sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
 
-echo -e "${CYAN}[*] Setting wlan0 settings${NOCOLOR}"
-#ifdown wlan0
-#ifup wlan0
+echo -e "${CYAN}[*] Setting $AP_IFACE settings${NOCOLOR}"
+#ifdown $AP_IFACE
+#ifup $AP_IFACE
 
 echo -e "${CYAN}[+] Configuration successful! Services will start now${NOCOLOR}"
-#dhcpd -4 -f -d wlan0 &
-#hostapd /etc/hostapd/hostapd.conf &
+#dhcpd -4 -f -d $AP_IFACE &
+hostapd /etc/hostapd/hostapd.conf &
 pid=$!
 wait $pid
 
