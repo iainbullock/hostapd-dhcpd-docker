@@ -5,7 +5,7 @@ RUN apk update && apk add --no-cache \
   hostapd iw dhcp iptables envsubst
 
 # Copy configs and scripts
-RUN mkdir /conf /app
+RUN mkdir /conf /app /run/dhcp
 ADD conf/* /conf
 ADD app/* /app
 RUN chmod +x /app/start.sh
