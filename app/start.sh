@@ -21,9 +21,9 @@ cleanup () {
   fi
   
   echo -e "${CYAN}[*] Restarting network interface...${NOCOLOR}"
-  sleep 5
+  sleep 1
   ifdown wlan0
-  sleep 5
+  sleep 1
   ifup wlan0
 
   echo -e "${GREEN}[+] Successfully exited, byebye! ${NOCOLOR}"
@@ -80,13 +80,13 @@ if [ -f /config/my_iptables.sh ]; then
 fi
 
 echo -e "${CYAN}[*] Setting $AP_IFACE settings${NOCOLOR}"
-sleep 5
+sleep 1
 ifdown $AP_IFACE
-sleep 5
+sleep 1
 ifup $AP_IFACE
 
 echo -e "${CYAN}[+] Configuration successful! Services will start now${NOCOLOR}"
-sleep 5
+sleep 15
 dhcpd -4 -f -d $AP_IFACE &
 hostapd /etc/hostapd/hostapd.conf &
 pid=$!
