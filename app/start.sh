@@ -23,8 +23,8 @@ cleanup () {
 trap 'sigterm_handler' TERM INT
 
 # Set default values for environment variables
-: ${UPLINK_IFACE:=eth0}
-: ${AP_IFACE:=wlan0}
+export UPLINK_IFACE=${UPLINK_IFACE:-eth0}
+export AP_IFACE=${AP_IFACE:-wlan0}
 
 echo -e "${CYAN}[*] Configuration variables:${NOCOLOR}"
 echo -e "${GREEN}     UPLINK_IFACE=$UPLINK_IFACE ${NOCOLOR}"
