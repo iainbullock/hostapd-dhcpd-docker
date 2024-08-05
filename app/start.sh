@@ -14,9 +14,16 @@ sigterm_handler () {
 cleanup () {
   echo -e "${CYAN}[*] Deleting iptables rules...${NOCOLOR}"
   sh /app/iptables_off.sh || echo -e "${RED}[-] Error deleting iptables rules${NOCOLOR}"
+
+  if [ -f /config/my_iptables_off.sh ]; then
+    echo -e "${CYAN}[*] Deleting my additional iptables rules${NOCOLOR}"
+    sh /config/my_iptables_off.sh || echo -e "${RED}[-] Error deleting my additional iptables rules${NOCOLOR}"
+  fi
+  
   echo -e "${CYAN}[*] Restarting network interface...${NOCOLOR}"
   ifdown wlan0
   ifup wlan0
+
   echo -e "${GREEN}[+] Successfully exited, byebye! ${NOCOLOR}"
 }
 
@@ -54,6 +61,12 @@ touch /run/dhcp/dhcpd.pid
 
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
 sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
+
+if [ -f /config/my_iptables.sh ]; then
+  echo -e "${CYAN}[*] Creating my additional iptables rules${NOCOLOR}"
+  sh /config/my_iptables.sh || echo -e "${RED}[-] Error creating my additional iptables rules${NOCOLOR}"
+fi
+
 sleep 5
 
 echo -e "${CYAN}[*] Setting $AP_IFACE settings${NOCOLOR}"
