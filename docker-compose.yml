@@ -1,0 +1,29 @@
+volumes:
+  hostapd-dhcpd:
+    external: true
+    
+services:
+  hostapd-dhcpd:
+    image: hostapd-dhcpd:latest
+    container_name: hostapd-dhcpd
+   
+    volumes:
+      - hostapd-dhcpd:/config
+    
+    network_mode: host
+    
+    cap_add:
+      - NET_ADMIN
+
+    environment:
+      - AP_IFACE=wlan0
+      - UPLINK_IFACE=eth0
+      
+    # Allow opening of a shell in container
+    tty: true
+    stdin_open: true    
+    # Uncomment if you need a container shell when the container won't run 
+    # entrypoint: "/bin/ash"
+    
+    restart: unless-stopped
+    stop_grace_period: 2m
