@@ -21,17 +21,18 @@ cleanup () {
 }
 
 trap 'sigterm_handler' TERM INT
+
 echo -e "${CYAN}[*] Creating iptables rules${NOCOLOR}"
-sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
+#sh /app/iptables.sh || echo -e "${RED}[-] Error creating iptables rules${NOCOLOR}"
 
 echo -e "${CYAN}[*] Setting wlan0 settings${NOCOLOR}"
-ifdown wlan0
-ifup wlan0
+#ifdown wlan0
+#ifup wlan0
 
 echo -e "${CYAN}[+] Configuration successful! Services will start now${NOCOLOR}"
-dhcpd -4 -f -d wlan0 &
-hostapd /etc/hostapd/hostapd.conf &
+#dhcpd -4 -f -d wlan0 &
+#hostapd /etc/hostapd/hostapd.conf &
 pid=$!
 wait $pid
 
-cleanup
+#cleanup
