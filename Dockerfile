@@ -4,7 +4,8 @@ FROM alpine:3.20.2
 RUN apk update && apk add --no-cache \
   hostapd iw dhcp iptables
 
-# Copy configs
+# Copy configs and scripts
+RUN mkdir /conf /app
 ADD conf/* /conf
 
 # Copy scripts
